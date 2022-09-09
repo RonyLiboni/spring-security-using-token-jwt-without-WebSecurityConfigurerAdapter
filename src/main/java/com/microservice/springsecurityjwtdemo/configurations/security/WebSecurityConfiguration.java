@@ -39,10 +39,11 @@ public class WebSecurityConfiguration {
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-            .authorizeRequests()
-            .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/auth/**").permitAll()
-    		.anyRequest().authenticated()
-            .and()
+            .authorizeRequests(auth -> {
+            	auth
+            		.antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/auth/**").permitAll()
+            		.anyRequest().authenticated();
+            })
             .csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     		.and().addFilterBefore(new JwtTokenAuthenticationFilter(jwtTokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
