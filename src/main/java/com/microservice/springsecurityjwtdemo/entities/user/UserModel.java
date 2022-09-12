@@ -38,7 +38,7 @@ public class UserModel implements UserDetails{
 	private UUID userId;
 	
 	@Column(nullable = false, unique = true)
-	@Schema(example = "Rony")
+	@Schema(example = "Rony@gmail.com")
 	private String username;
 	
 	@Column(nullable = false)
