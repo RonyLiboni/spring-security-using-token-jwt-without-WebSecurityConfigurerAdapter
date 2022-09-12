@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
@@ -39,7 +40,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping	
-	@Operation(summary = "User can self-delete its data if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
+	@Operation(summary = "User can delete its data if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode= "204", description = "The resource was deleted with success!"),
 		    @ApiResponse(responseCode= "403", description = "You don't have enough permissions to access this endpoint"),
@@ -49,14 +50,27 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
-	@PutMapping
-	@Operation(summary = "User can self-update its username if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
+	@PutMapping("/username")
+	@Operation(summary = "User can update its username if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode= "200", description = "The resources was updated with success!"),
 		    @ApiResponse(responseCode= "403", description = "You don't have enough permissions to access this endpoint"),
 		})
 	public ResponseEntity<UserModelDto> updateUserUsername(@RequestBody @Valid UsernameFormDto form) {
-		return ResponseEntity.status(HttpStatus.OK).body(userModelService.updateUser(form));
+		return ResponseEntity.status(HttpStatus.OK).body(userModelService.updateOnlyUsername(form));
 	}
+	
+	@PutMapping("/password")
+	@Operation(summary = "User can update its password if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode= "204", description = "The resources was updated with success!"),
+		    @ApiResponse(responseCode= "403", description = "You don't have enough permissions to access this endpoint"),
+		})
+	public ResponseEntity<Object> updateUserPassword(@RequestBody @Valid PasswordFormDto form) {
+		userModelService.updateOnlyPassword(form);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	
 	
 }

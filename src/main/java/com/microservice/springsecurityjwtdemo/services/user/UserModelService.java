@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.microservice.springsecurityjwtdemo.entities.user.RoleModel;
 import com.microservice.springsecurityjwtdemo.entities.user.RoleName;
 import com.microservice.springsecurityjwtdemo.entities.user.UserModel;
+import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
@@ -56,7 +57,7 @@ public class UserModelService {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
-	public UserModelDto updateUser(UsernameFormDto form) {
+	public UserModelDto updateOnlyUsername(UsernameFormDto form) {
 		return new UserModelDto(updateUsername(form));
 	}
 
@@ -65,5 +66,15 @@ public class UserModelService {
 		userByUsername.setUsername(form.getUsername());
 		return saveEntity(userByUsername);
 	}
+	
+	public void updateOnlyPassword(PasswordFormDto form) {
+		UserModel userByUsername = getUserByUsername();
+		userByUsername.setPassword(passwordEncoder.encode(form.getPassword()));
+		saveEntity(userByUsername);
+	}
+
+	
+
+	
 
 }
