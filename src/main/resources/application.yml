@@ -3,10 +3,24 @@ spring:
     password: ${DATABASE_PASSWORD:root}
     url: ${DATABASE_URL:jdbc:mysql://localhost:3306/spring-security-jwt?createDatabaseIfNotExist=TRUE}
     username: ${DATABASE_USERNAME:root}
+
   jpa:
     hibernate:
       ddl-auto: update
 
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:testesdeapp.naoresponda@gmail.com}
+    password: ${MAIL_PASSWORD:frcobfqazecsyxyp}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_AUTH:true}
+          starttls:
+            enable: ${MAIL_STARTTLS_ENABLE:true} 
+
 jwt:
   secret: ${JWT_SECRET:A+X;fTJP&Pd,TD9dwVq(hsHX,ya^<wsD_UK7L+@=S;{'CydP]{v@}G'b>et;yz$*\yL5S8EJN:%P:X%H9>#nYLrX}@\s?CQcpspH,2emzBc!Q[V'AYa~uzF8WR~AUrMzxp/V$9([S9X#zj/CH('#]B_Hc+%fGhe27YB;^j4\Xk=Ju"Ap~_&<L;=!Z;!,2UP;!hF3P]j85#*`&T]/kB/W^6$v~u6qpejL>kY^f)sy4:qTq_Ec!-z!@aAp~sLKGU>$ }
   expiration: ${JWT_EXPIRATION:86400000} 
+  
