@@ -52,7 +52,7 @@ public class JwtTokenService {
 		UserModel user = (UserModel) authentication.getPrincipal();
 	
 		return Jwts.builder()
-				.setIssuer("Spring Security Demo with JWT API")
+				.setIssuer("Spring Security Demo with JWT API. Find the project in https://github.com/RonyLiboni/spring-security-using-token-jwt-without-WebSecurityConfigurerAdapter.git")
 				.setSubject(user.getUserId().toString())
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(new Date().getTime() + Long.parseLong(expiration)))

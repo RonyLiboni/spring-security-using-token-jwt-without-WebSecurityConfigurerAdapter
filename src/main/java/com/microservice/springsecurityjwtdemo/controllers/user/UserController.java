@@ -27,22 +27,22 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/v1/user")
 @RequiredArgsConstructor
-@Tag(name = "User Endpoints", description = "Here, you will be able to create, update and delete users.")
+@Tag(name = "User Endpoints", description = "Here, users will be able to create, update and delete their data.")
 public class UserController {
 	
 	private final UserModelService userModelService;
 
 	@PostMapping
-	@Operation(summary = "User can self-register in the API.")
-	@ApiResponse(responseCode= "201", description = "The resource was created with success!")
+	@Operation(summary = "Users can self-register in this endpoint.")
+	@ApiResponse(responseCode= "201", description = "The user was created with success!")
 	public ResponseEntity<UserModelDto> registerUser(@RequestBody @Valid UserFormDto form) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userModelService.registerUser(form));
 	}
 	
 	@DeleteMapping	
-	@Operation(summary = "User can delete its data if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
+	@Operation(summary = "Users can delete their data if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode= "204", description = "The resource was deleted with success!"),
+			@ApiResponse(responseCode= "204", description = "The user was deleted with success!"),
 		    @ApiResponse(responseCode= "403", description = "You don't have enough permissions to access this endpoint"),
 		})
 	public ResponseEntity<Object> deleteAuthenticatedUser(){
@@ -51,9 +51,9 @@ public class UserController {
 	}
 	
 	@PutMapping("/username")
-	@Operation(summary = "User can update its username if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
+	@Operation(summary = "Users can update their username if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode= "200", description = "The resources was updated with success!"),
+			@ApiResponse(responseCode= "200", description = "The username was updated with success!"),
 		    @ApiResponse(responseCode= "403", description = "You don't have enough permissions to access this endpoint"),
 		})
 	public ResponseEntity<UserModelDto> updateUserUsername(@RequestBody @Valid UsernameFormDto form) {
@@ -61,9 +61,9 @@ public class UserController {
 	}
 	
 	@PutMapping("/password")
-	@Operation(summary = "User can update its password if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
+	@Operation(summary = "Users can update their password if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode= "204", description = "The resources was updated with success!"),
+			@ApiResponse(responseCode= "204", description = "The password was updated with success!"),
 		    @ApiResponse(responseCode= "403", description = "You don't have enough permissions to access this endpoint"),
 		})
 	public ResponseEntity<Object> updateUserPassword(@RequestBody @Valid PasswordFormDto form) {
@@ -72,16 +72,16 @@ public class UserController {
 	}
 	
 	@GetMapping("/forgotMyPassword/{username}")
-	@Operation(summary = "User will receive a token to change its password.")
-	@ApiResponse(responseCode= "200", description = "The resources was updated with success!")
+	@Operation(summary = "Users will receive in their email a token to change their password.")
+	@ApiResponse(responseCode= "200", description = "The email was sent with success!")
 	public ResponseEntity<String> getTokenForForgottenPassword(@PathVariable String username) {
 		userModelService.sendEmailWithTokenToCreateANewPassword(username);
-		return ResponseEntity.status(HttpStatus.OK).body("The instructions to change your password where sent to your e-mail.");
+		return ResponseEntity.status(HttpStatus.OK).body("The instructions to change your password were sent to your e-mail.");
 	}
 	
 	@PutMapping("/forgotMyPassword")
-	@Operation(summary = "User will receive a token to change its password.")
-	@ApiResponse(responseCode= "200", description = "The resources was updated with success!")
+	@Operation(summary = "Users will use the token they received by email to change their password.")
+	@ApiResponse(responseCode= "200", description = "The password was updated with success!")
 	public ResponseEntity<String> changeUserForgottenPasswordThroughToken(@RequestBody @Valid PasswordRecoveryFormDto form) {
 		userModelService.validateTokenAndChangePassword(form);
 		return ResponseEntity.status(HttpStatus.OK).body("Your password was successfuly changed!");

@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 public class LoginFormDto {
 	
 	@NotBlank
-	@Schema(example = "Rony")
+	@Schema(example = "ronald.liboni@acad.pucrs.br")
 	private String username;
 	@NotBlank
-	@Schema(example = "123456")
+	@Schema(example = "E4sy_pass")
 	private String password;
 }

@@ -17,9 +17,9 @@ public class SpringDocConfig {
 	        		.addSecuritySchemes("bearer-key",
 	        				new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("Bearer").bearerFormat("JWT"))
 	        		)
-	        .info(new Info().title("Ger Library API")
+	        .info(new Info().title("Spring Security Demo with JWT API.")
 	        		.version("1.0")
-	        		.description("This is a sample server of Ger Library API."));
+	        		.description("Spring Security Demo with JWT API. Find the project in https://github.com/RonyLiboni/spring-security-using-token-jwt-without-WebSecurityConfigurerAdapter.git"));
 	}
 
 }
