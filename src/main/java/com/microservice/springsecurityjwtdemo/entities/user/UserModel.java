@@ -1,7 +1,6 @@
 package com.microservice.springsecurityjwtdemo.entities.user;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,9 +50,6 @@ public class UserModel implements UserDetails{
 	
 	@Column(nullable = true)
 	private String passwordRecoveryToken;
-	
-	@Column(nullable = true)
-	private Date passwordRecoveryTokenExpirationDate;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

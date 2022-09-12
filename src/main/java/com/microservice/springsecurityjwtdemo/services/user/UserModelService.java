@@ -1,25 +1,21 @@
 package com.microservice.springsecurityjwtdemo.services.user;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
 import javax.transaction.Transactional;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.microservice.springsecurityjwtdemo.entities.user.RoleModel;
 import com.microservice.springsecurityjwtdemo.entities.user.RoleName;
 import com.microservice.springsecurityjwtdemo.entities.user.UserModel;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordFormDto;
+import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordRecoveryFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
 import com.microservice.springsecurityjwtdemo.repositories.UserRepository;
 import com.microservice.springsecurityjwtdemo.services.emails.EmailSenderService;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -80,8 +76,9 @@ public class UserModelService {
 	public void sendEmailWithTokenToCreateANewPassword(String username) {
 		UserModel user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new RuntimeException("This username doesn't exist"));
-		user.setPasswordRecoveryToken(UUID.randomUUID().toString());
-		user.setPasswordRecoveryTokenExpirationDate(new Date(new Date().getTime() + 1800000));
+		
+		user.setPasswordRecoveryToken(createPasswordRecoveryToken());
+		saveEntity(user);
 		emailSenderService.sendEmail(username, 
 				"Hi, you have asked to change your password. Please send a PUT request to the path bellow. It will expire in 30 minutes: \n"
 				+ "http://localhost:8080/v1/user/forgotMyPassword/"+user.getPasswordRecoveryToken()
@@ -89,6 +86,17 @@ public class UserModelService {
 				+"\n This e-mail is from the app you are testing. \n"
 				+ "https://github.com/RonyLiboni/spring-security-using-token-jwt-without-WebSecurityConfigurerAdapter.git",
 				"\n You asked to change your password in Spring Security JWT Token service!");
+	}
+
+	private String createPasswordRecoveryToken() {
+		return UUID.randomUUID().toString() + (System.currentTimeMillis() + 1800000);
+	}
+
+	public void validateTokenAndChangePassword(PasswordRecoveryFormDto form) {
+		UserModel user = userRepository.findByPasswordRecoveryToken(form.getRecoveryToken())
+				.orElseThrow(()-> new RuntimeException("The token you provided doesn't exist."));
+		user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+		user.setPasswordRecoveryToken(null);
 		saveEntity(user);
 	}
 }

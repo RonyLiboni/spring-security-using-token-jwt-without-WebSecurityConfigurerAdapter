@@ -43,8 +43,8 @@ public class WebSecurityConfiguration {
             .authorizeRequests(auth -> {
             	auth
             		.antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            		.antMatchers(HttpMethod.GET, "/v1/user/forgotMyPassword/**").permitAll()
-            		.antMatchers(HttpMethod.POST, "/v1/user", "/auth/**").permitAll()
+            		.antMatchers("/v1/user/forgotMyPassword/**").permitAll()
+            		.antMatchers(HttpMethod.POST, "/v1/user", "/auth").permitAll()
             		.anyRequest().authenticated();
             })
             .csrf().disable()
