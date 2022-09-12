@@ -1,15 +1,20 @@
 package com.microservice.springsecurityjwtdemo.services.user;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import com.microservice.springsecurityjwtdemo.entities.user.RoleModel;
 import com.microservice.springsecurityjwtdemo.entities.user.RoleName;
 import com.microservice.springsecurityjwtdemo.entities.user.UserModel;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
 import com.microservice.springsecurityjwtdemo.repositories.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -35,6 +40,20 @@ public class UserModelService {
 	@Transactional
 	private UserModel saveEntity(UserModel user) {
 		return userRepository.save(user);
+	}
+	
+	@Transactional
+	public void deleteUser() {
+		userRepository.delete(getUserByUsername());	
+	}
+	
+	private UserModel getUserByUsername() {
+		return userRepository.findByUsername(getUsername())
+				.orElseThrow(() -> new RuntimeException("This username doesn't exist"));
+	}
+
+	private String getUsername() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 }
