@@ -1,4 +1,4 @@
-# spring security with token JWT microservice for user authentication and authorization
+# Utilizando Spring Security com token JWT como microserviço para autorização e autenticação de usuários
 
 Olá! Este projeto foi criado para estudo e aprender a implementar o Spring Security sem herdar da classe WebSecurityConfigurerAdapter, pois essa forma foi depreciada em fevereiro de 2022.
 
