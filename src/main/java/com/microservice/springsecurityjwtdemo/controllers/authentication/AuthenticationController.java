@@ -1,4 +1,4 @@
-package com.microservice.springsecurityjwtdemo.controllers;
+package com.microservice.springsecurityjwtdemo.controllers.authentication;
 
 import javax.validation.Valid;
 
