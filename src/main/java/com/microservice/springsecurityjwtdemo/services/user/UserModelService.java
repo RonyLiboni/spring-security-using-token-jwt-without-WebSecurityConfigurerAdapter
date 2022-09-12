@@ -13,6 +13,7 @@ import com.microservice.springsecurityjwtdemo.entities.user.RoleName;
 import com.microservice.springsecurityjwtdemo.entities.user.UserModel;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
+import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
 import com.microservice.springsecurityjwtdemo.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -33,8 +34,7 @@ public class UserModelService {
 						.roleId(2L)
 						.roleName(RoleName.ROLE_USER)
 						.build()))
-				.build())
-				.getUsername());
+				.build()));
 	}
 	
 	@Transactional
@@ -54,6 +54,16 @@ public class UserModelService {
 
 	private String getUsername() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
+
+	public UserModelDto updateUser(UsernameFormDto form) {
+		return new UserModelDto(updateUsername(form));
+	}
+
+	private UserModel updateUsername(UsernameFormDto form) {
+		UserModel userByUsername = getUserByUsername();
+		userByUsername.setUsername(form.getUsername());
+		return saveEntity(userByUsername);
 	}
 
 }

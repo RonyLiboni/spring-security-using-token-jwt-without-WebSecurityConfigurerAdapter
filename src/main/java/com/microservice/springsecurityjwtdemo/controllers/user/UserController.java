@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
+import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
 import com.microservice.springsecurityjwtdemo.services.user.UserModelService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +32,7 @@ public class UserController {
 	private final UserModelService userModelService;
 
 	@PostMapping
-	@Operation(summary = "Creates an Customer.")
+	@Operation(summary = "User can self-register in the API.")
 	@ApiResponse(responseCode= "201", description = "The resource was created with success!")
 	public ResponseEntity<UserModelDto> registerUser(@RequestBody @Valid UserFormDto form) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userModelService.registerUser(form));
@@ -45,6 +47,16 @@ public class UserController {
 	public ResponseEntity<Object> deleteAuthenticatedUser(){
 		userModelService.deleteUser();
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	@PutMapping
+	@Operation(summary = "User can self-update its username if authenticated.", security = { @SecurityRequirement(name = "bearer-key") })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode= "200", description = "The resources was updated with success!"),
+		    @ApiResponse(responseCode= "403", description = "You don't have enough permissions to access this endpoint"),
+		})
+	public ResponseEntity<UserModelDto> updateUserUsername(@RequestBody @Valid UsernameFormDto form) {
+		return ResponseEntity.status(HttpStatus.OK).body(userModelService.updateUser(form));
 	}
 	
 }
