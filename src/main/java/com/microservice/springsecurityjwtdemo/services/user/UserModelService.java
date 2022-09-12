@@ -1,6 +1,8 @@
 package com.microservice.springsecurityjwtdemo.services.user;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +18,7 @@ import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
 import com.microservice.springsecurityjwtdemo.repositories.UserRepository;
+import com.microservice.springsecurityjwtdemo.services.emails.EmailSenderService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +28,7 @@ public class UserModelService {
 	
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final EmailSenderService emailSenderService;
 	
 	public UserModelDto registerUser(UserFormDto form) {
 		return new UserModelDto(saveEntity(UserModel.builder()
@@ -73,8 +77,18 @@ public class UserModelService {
 		saveEntity(userByUsername);
 	}
 
-	
-
-	
-
+	public void sendEmailWithTokenToCreateANewPassword(String username) {
+		UserModel user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("This username doesn't exist"));
+		user.setPasswordRecoveryToken(UUID.randomUUID().toString());
+		user.setPasswordRecoveryTokenExpirationDate(new Date(new Date().getTime() + 1800000));
+		emailSenderService.sendEmail(username, 
+				"Hi, you have asked to change your password. Please send a PUT request to the path bellow. It will expire in 30 minutes: \n"
+				+ "http://localhost:8080/v1/user/forgotMyPassword/"+user.getPasswordRecoveryToken()
+				+ "\n also you can copy and paste the token in the password recovery endpoint. Token: "+user.getPasswordRecoveryToken()
+				+"\n This e-mail is from the app you are testing. \n"
+				+ "https://github.com/RonyLiboni/spring-security-using-token-jwt-without-WebSecurityConfigurerAdapter.git",
+				"\n You asked to change your password in Spring Security JWT Token service!");
+		saveEntity(user);
+	}
 }

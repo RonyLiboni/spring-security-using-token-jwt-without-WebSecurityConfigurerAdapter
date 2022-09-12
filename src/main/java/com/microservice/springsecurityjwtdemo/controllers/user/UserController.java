@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,6 +72,15 @@ public class UserController {
 		userModelService.updateOnlyPassword(form);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
+	
+	@GetMapping("/forgotMyPassword/{username}")
+	@Operation(summary = "User will receive a token to change its password.", security = { @SecurityRequirement(name = "bearer-key") })
+	@ApiResponse(responseCode= "200", description = "The resources was updated with success!")
+	public ResponseEntity<String> getTokenForForgottenPassword(@PathVariable String username) {
+		userModelService.sendEmailWithTokenToCreateANewPassword(username);
+		return ResponseEntity.status(HttpStatus.OK).body("The instructions to change your password where sent to your e-mail.");
+	}
+	
 	
 	
 	
