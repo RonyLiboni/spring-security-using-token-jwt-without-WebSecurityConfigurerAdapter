@@ -29,6 +29,7 @@ Foram implementadas as seguintes funcionalidades:
   - Spring Data JPA
   - Docker
   - Spring Validation
+  - Java Mail Sender
   - Banco de dados MySQL
   - FlyWay Migrations
   - Documentação com SpringDoc
