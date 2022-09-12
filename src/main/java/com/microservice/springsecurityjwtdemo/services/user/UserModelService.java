@@ -2,7 +2,6 @@ package com.microservice.springsecurityjwtdemo.services.user;
 
 import java.util.List;
 import javax.transaction.Transactional;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.microservice.springsecurityjwtdemo.entities.user.RoleModel;
