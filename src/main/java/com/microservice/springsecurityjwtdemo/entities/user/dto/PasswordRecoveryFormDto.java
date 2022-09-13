@@ -6,9 +6,13 @@ import com.microservice.springsecurityjwtdemo.validations.password.PasswordRules
 import com.microservice.springsecurityjwtdemo.validations.recovery_token.PasswordRecoveryTokenMustBeValid;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PasswordRecoveryFormDto {
 
 	@PasswordRecoveryTokenMustBeValid
