@@ -1,0 +1,51 @@
+services:
+  mysql-db:
+    image: mysql 
+    container_name: spring-security-mysql 
+    environment: 
+      MYSQL_ROOT_PASSWORD: root 
+    ports: 
+      - 3307:3306 
+    networks:  
+      - ger-network
+    restart: always 
+    
+    healthcheck: 
+      test: "curl --fail http://mysql-db:3306/ || exit 1" 
+      timeout: 5s 
+      retries: 10  
+    deploy:
+      resources:
+        limits: 
+          memory: 512M
+    volumes: 
+       - db_data:/var/lib/mysql
+      
+  app:
+    image: ronaldliboni/spring-security-with-token-jwt:1.0
+    container_name: spring-security-with-token-jwt
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/spring-security-with-token-jwt?createDatabaseIfNotExist=TRUE
+    ports:
+     - 8080:8080  
+    networks:
+      - ger-network
+    restart: on-failure 
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+      resources:
+        limits:
+          memory: 512M
+        
+networks: 
+  ger-network:
+    driver: bridge
+    
+volumes: 
+  db_data:
+    driver: local
