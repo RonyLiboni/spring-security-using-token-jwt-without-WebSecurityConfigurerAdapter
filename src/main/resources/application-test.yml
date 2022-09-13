@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    password: ${DATABASE_PASSWORD:root}
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/spring-security-jwt-test?createDatabaseIfNotExist=TRUE}
+    username: ${DATABASE_USERNAME:root}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:testesdeapp.naoresponda@gmail.com}
+    password: ${MAIL_PASSWORD:frcobfqazecsyxyp}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_AUTH:true}
+          starttls:
+            enable: ${MAIL_STARTTLS_ENABLE:true} 
+ 
+  flyway:
+    enabled: true
+
+jwt:
+  secret: ${JWT_SECRET:uN1t35ts }
+  expiration: ${JWT_EXPIRATION:86400000} 
+  
