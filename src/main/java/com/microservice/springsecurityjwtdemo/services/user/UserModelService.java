@@ -32,7 +32,6 @@ public class UserModelService {
 				.password(passwordEncoder.encode(form.getPassword()))
 				.roles(List.of(
 						RoleModel.builder()
-						.roleId(2L)
 						.roleName(RoleName.ROLE_USER)
 						.build()))
 				.build()));
