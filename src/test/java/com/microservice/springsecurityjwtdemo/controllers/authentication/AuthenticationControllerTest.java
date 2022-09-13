@@ -15,7 +15,7 @@ class AuthenticationControllerTest extends ControllerTestTemplate {
 	void authenticateUser_ShouldReturnStatusCodeCreated_WhenUsernameAndPasswordAreCorrect() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
 				.post(authenticationUri)
-				.content(objectMapper.writeValueAsString(LoginFormDto.builder().username("ronald.liboni@acad.pucrs.br").password("123456").build()))
+				.content(objectMapper.writeValueAsString(LoginFormDto.builder().username("ronald.liboni@acad.pucrs.br").password("E4sy_pass").build()))
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers
 				.status()

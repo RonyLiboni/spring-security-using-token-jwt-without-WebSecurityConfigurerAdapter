@@ -24,10 +24,7 @@ public class GlobalExceptionHandlerController {
 		List<FieldErrorsDto> fieldErrorsdto = new ArrayList<>();
 		
 		exception.getBindingResult().getFieldErrors().forEach(error ->{
-			fieldErrorsdto.add(FieldErrorsDto.builder()
-					.field(error.getField())
-					.error(error.getDefaultMessage())
-					.build());
+			fieldErrorsdto.add(new FieldErrorsDto(error));
 		});;
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(fieldErrorsdto);
