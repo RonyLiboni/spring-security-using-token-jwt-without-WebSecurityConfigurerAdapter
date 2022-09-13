@@ -11,13 +11,7 @@ import com.microservice.springsecurityjwtdemo.configurations.controllers.Control
 import com.microservice.springsecurityjwtdemo.utils.UserUtil;
 
 class GlobalExceptionHandlerControllerTest extends ControllerTestTemplate {
-	
-	private final String userUri="/v1/user";
-	private final String changeUsernameUri="/v1/user/username";
-	private final String changePasswordUri="/v1/user/password";
-	private final String forgotPasswordUri="/v1/user/forgotMyPassword";
-	private final String authUri="/auth";
-	
+		
 	@Test
 	void userFormDtoValidation_userController_shouldReturnBadRequestAndValidationErrors_WhenThereAreInvalidFieldsInTheFormSent() throws Exception {
 		ResultActions result = mockMvc.perform(MockMvcRequestBuilders
@@ -37,7 +31,6 @@ class GlobalExceptionHandlerControllerTest extends ControllerTestTemplate {
 		assertThat(errors).contains("Password must contain at least 1 special characters.");
 		assertThat(errors).contains("Password cannot contain whitespace characters");
 		assertThat(errors).contains("This username is already in use!");
-		
 	}
 	
 	@Test
@@ -112,7 +105,7 @@ class GlobalExceptionHandlerControllerTest extends ControllerTestTemplate {
 	@Test
 	void loginFormDtoValidation_userController_shouldReturnBadRequestAndValidationErrors_WhenThereAreInvalidFieldsInTheFormSent() throws Exception {
 		ResultActions result = mockMvc.perform(MockMvcRequestBuilders
-				.post(authUri)
+				.post(authenticationUri)
 				.content(objectMapper.writeValueAsString(UserUtil.createInvalidLoginFormDto()))
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers
@@ -128,7 +121,7 @@ class GlobalExceptionHandlerControllerTest extends ControllerTestTemplate {
 	@Test
 	void loginFormDtoValidation_userController_shouldReturnBadRequestAndMessageBadCredential_WhenUsernameOrPasswordAreNotInTheDatabase() throws Exception {
 		ResultActions result = mockMvc.perform(MockMvcRequestBuilders
-				.post(authUri)
+				.post(authenticationUri)
 				.content(objectMapper.writeValueAsString(UserUtil.createLoginFormDtoWithWrongUsernameAndPassword()))
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers

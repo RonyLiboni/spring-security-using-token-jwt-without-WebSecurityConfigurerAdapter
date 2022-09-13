@@ -11,9 +11,6 @@ import com.microservice.springsecurityjwtdemo.entities.login_form.LoginFormDto;
 @Profile("default")
 class AuthenticationControllerTest extends ControllerTestTemplate {
 
-	private final String authenticationUri = "/auth";
-
-
 	@Test
 	void authenticateUser_ShouldReturnStatusCodeCreated_WhenUsernameAndPasswordAreCorrect() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders

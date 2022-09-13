@@ -22,7 +22,13 @@ public abstract class ControllerTestTemplate {
 	protected ObjectMapper objectMapper;
 	@Autowired
 	protected Flyway flyway;
-
+	
+	protected final String userUri="/v1/user";
+	protected final String changeUsernameUri= userUri +"/username";
+	protected final String changePasswordUri= userUri +"/password";
+	protected final String forgotPasswordUri= userUri +"/forgotMyPassword";
+	protected final String forgotPasswordWithUsernameUri= userUri +"/forgotMyPassword/ronald.liboni@acad.pucrs.br";
+	protected final String authenticationUri = "/auth";
 	
 	@BeforeEach
 	void setup(){
