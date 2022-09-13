@@ -27,7 +27,7 @@ CREATE TABLE users_roles (
 
 
 INSERT INTO users (user_id, password, username, password_recovery_token) 
-VALUES (UUID_TO_BIN('15b53dce-32c5-475d-aa1c-7e0fa1682b24'), '$2a$12$Ei0ZtHu1K37/RTMgP97Uiefw5up03sy6dy1EDjlH4wEglrxSi/v3q', 'ronald.liboni@acad.pucrs.br', 'testToken');
+VALUES (UUID_TO_BIN('15b53dce-32c5-475d-aa1c-7e0fa1682b24'), '$2a$10$EruneaH.Sm81RZs2U6Zwpen2o1oaHOD5oCnzfsMj59IyeysEm4yYu', 'ronald.liboni@acad.pucrs.br', 'testToken');
 
 INSERT INTO users_roles (user_model_user_id, roles_role_id)
 VALUES (UUID_TO_BIN('15b53dce-32c5-475d-aa1c-7e0fa1682b24'), 1);
