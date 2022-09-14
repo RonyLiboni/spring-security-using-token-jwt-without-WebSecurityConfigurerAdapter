@@ -4,7 +4,7 @@ Olá! Este projeto foi criado para estudo e aprender a implementar o Spring Secu
 
 Neste vídeo eu apresento a documentação do projeto: (Em breve)
 
-### Você precisa ter o LOMBOK instalado na sua IDE para conseguir rodar a API OU ter o docker instalado e utilizar o docker-compose que está na pasta raiz deste projeto (Em breve).
+### Você precisa ter o LOMBOK instalado na sua IDE para conseguir rodar a API OU ter o docker instalado e utilizar o docker-compose que está na pasta raiz deste projeto.
 
 Esta implementação utiliza token JWT para autenticacao e autorização dos usuários.
 Você consegue ter acesso a documentação pelo swagger, após iniciar o projeto:
