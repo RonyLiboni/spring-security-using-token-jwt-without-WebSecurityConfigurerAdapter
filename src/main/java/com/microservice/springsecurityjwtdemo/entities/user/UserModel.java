@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,6 +52,12 @@ public class UserModel implements UserDetails{
 	
 	@Column(nullable = true)
 	private String passwordRecoveryToken;
+	
+	public UserModel (UserFormDto form) {
+		this.username = form.getUsername();
+		this.password = form.getPassword();
+		this.roles = List.of(new RoleModel(RoleName.ROLE_USER));
+	}	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -85,4 +93,5 @@ public class UserModel implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
+
 }

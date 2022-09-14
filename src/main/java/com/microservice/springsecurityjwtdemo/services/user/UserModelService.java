@@ -1,13 +1,10 @@
 package com.microservice.springsecurityjwtdemo.services.user;
 
-import java.util.List;
 import java.util.UUID;
 import javax.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.microservice.springsecurityjwtdemo.entities.user.RoleModel;
-import com.microservice.springsecurityjwtdemo.entities.user.RoleName;
 import com.microservice.springsecurityjwtdemo.entities.user.UserModel;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordRecoveryFormDto;
@@ -27,14 +24,7 @@ public class UserModelService {
 	private final EmailSenderService emailSenderService;
 	
 	public UserModelDto registerUser(UserFormDto form) {
-		return new UserModelDto(saveEntity(UserModel.builder()
-				.username(form.getUsername())
-				.password(passwordEncoder.encode(form.getPassword()))
-				.roles(List.of(
-						RoleModel.builder()
-						.roleName(RoleName.ROLE_USER)
-						.build()))
-				.build()));
+		return new UserModelDto(saveEntity(new UserModel(form)));
 	}
 	
 	@Transactional
