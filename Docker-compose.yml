@@ -7,7 +7,7 @@ services:
     ports: 
       - 3307:3306 
     networks:  
-      - ger-network
+      - spring-security-network
     restart: always 
     
     healthcheck: 
@@ -32,7 +32,7 @@ services:
     ports:
      - 8080:8080  
     networks:
-      - ger-network
+      - spring-security-network
     restart: on-failure 
     deploy:
       restart_policy:
@@ -43,7 +43,7 @@ services:
           memory: 512M
         
 networks: 
-  ger-network:
+  spring-security-network:
     driver: bridge
     
 volumes: 
