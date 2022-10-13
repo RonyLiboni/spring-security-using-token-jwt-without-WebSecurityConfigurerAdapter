@@ -40,7 +40,7 @@ class UserControllerTest {
 	@Test
 	void updateUserPassword_ShouldReturnStatusNoContent_WhenUserIsAuthenticated() throws Exception {
 		assertThat(userController.updateUserPassword(null).getStatusCode())
-			.isEqualTo(HttpStatus.NO_CONTENT);
+			.isEqualTo(HttpStatus.OK);
 	}
 	
 	@Test
@@ -52,6 +52,6 @@ class UserControllerTest {
 	@Test
 	void getTokenForForgottenPassword_ShouldReturnStatusCodeOk__WhenSucessfull() throws Exception {
 		assertThat(userController.getTokenForForgottenPassword(null).getStatusCode())
-			.isEqualTo(HttpStatus.OK);
+			.isEqualTo(HttpStatus.CREATED);
 	}
 }

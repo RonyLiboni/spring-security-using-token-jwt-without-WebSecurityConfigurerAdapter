@@ -29,7 +29,7 @@ public class UserModelService {
 	private final ApplicationEventPublisher eventPublisher;
 	
 	public UserModelDto registerUser(UserFormDto form) {
-		return new UserModelDto(saveEntity(new UserModel(form)));
+		return new UserModelDto(saveEntity(new UserModel(form, passwordEncoder)));
 	}
 	
 	@Transactional

@@ -72,7 +72,7 @@ class GlobalExceptionHandlerTest extends ControllerTestTemplate {
 	@Test
 	void changeUserForgottenPasswordThroughToken_userController_shouldReturnBadRequest_WhenTheUsernameSentDoesNotExist() throws Exception {
 		ResultActions result = mockMvc.perform(MockMvcRequestBuilders
-				.get(forgotPasswordUri+"/usernameThatDoesNotExist"))
+				.post(forgotPasswordUri+"/usernameThatDoesNotExist"))
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.isBadRequest());
