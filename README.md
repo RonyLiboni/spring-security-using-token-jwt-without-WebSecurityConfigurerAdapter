@@ -2,7 +2,7 @@
 
 Olá! Este projeto foi criado para estudo e aprender a implementar o Spring Security sem herdar da classe WebSecurityConfigurerAdapter, pois essa forma foi depreciada em fevereiro de 2022.
 
-Neste vídeo eu apresento a documentação do projeto: (Em breve)
+Neste vídeo eu apresento a documentação do projeto: https://youtu.be/CuxEvKrZ4F4
 
 ### Você precisa ter o LOMBOK instalado na sua IDE para conseguir rodar a API OU ter o docker instalado e utilizar o docker-compose que está na pasta raiz deste projeto.
 
