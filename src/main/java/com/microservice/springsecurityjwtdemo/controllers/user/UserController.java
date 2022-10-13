@@ -1,6 +1,7 @@
 package com.microservice.springsecurityjwtdemo.controllers.user;
 
 import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.PasswordRecoveryFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
 import com.microservice.springsecurityjwtdemo.services.user.UserModelService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -86,8 +89,5 @@ public class UserController {
 		userModelService.validateTokenAndChangePassword(form);
 		return ResponseEntity.status(HttpStatus.OK).body("Your password was successfuly changed!");
 	}
-	
-	
-	
-	
+		
 }
