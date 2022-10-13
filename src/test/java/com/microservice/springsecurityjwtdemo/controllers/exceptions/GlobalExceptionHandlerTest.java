@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.microservice.springsecurityjwtdemo.configurations.controllers.ControllerTestTemplate;
 import com.microservice.springsecurityjwtdemo.utils.UserUtil;
 
-class GlobalExceptionHandlerControllerTest extends ControllerTestTemplate {
+class GlobalExceptionHandlerTest extends ControllerTestTemplate {
 		
 	@Test
 	void userFormDtoValidation_userController_shouldReturnBadRequestAndValidationErrors_WhenThereAreInvalidFieldsInTheFormSent() throws Exception {

@@ -7,11 +7,12 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.microservice.springsecurityjwtdemo.entities.user.UserModel;
+import com.microservice.springsecurityjwtdemo.events.PasswordRecoveryTokenEvent;
 import com.microservice.springsecurityjwtdemo.repositories.UserRepository;
-import com.microservice.springsecurityjwtdemo.services.emails.EmailSenderService;
 
 @ExtendWith(SpringExtension.class)
 class UserModelServiceTest {
@@ -23,7 +24,7 @@ class UserModelServiceTest {
 	@Mock
 	private PasswordEncoder passwordEncoder;
 	@Mock
-	private EmailSenderService emailSenderService;
+	private ApplicationEventPublisher eventPublisher;
 	
 	@Test
 	void sendEmailWithTokenToCreateANewPassword_ShouldCreateAToken() {
@@ -31,7 +32,7 @@ class UserModelServiceTest {
 		String username = "ronald.liboni@acad.pucrs.br";
 		userModelService.sendEmailWithTokenToCreateANewPassword(username);
 		Mockito.verify(userRepository).findByUsername(username);
-		Mockito.verify(emailSenderService).sendEmail(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
+		Mockito.verify(eventPublisher).publishEvent(ArgumentMatchers.any(PasswordRecoveryTokenEvent.class));
 	}
 
 }
