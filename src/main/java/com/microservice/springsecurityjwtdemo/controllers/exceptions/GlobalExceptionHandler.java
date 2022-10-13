@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
-public class GlobalExceptionHandlerController {
+public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ApiResponse(responseCode= "400", description = "There was an error with the form you sent.")
@@ -25,7 +25,7 @@ public class GlobalExceptionHandlerController {
 	}
 	
 	@ExceptionHandler(RuntimeException.class)
-	@ApiResponse(responseCode= "400", description = "There was an error with the form you sent.")
+	@ApiResponse(responseCode= "400")
 	public ResponseEntity<String> customException(RuntimeException exception) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
 	}

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 
@@ -53,9 +54,9 @@ public class UserModel implements UserDetails{
 	@Column(nullable = true)
 	private String passwordRecoveryToken;
 	
-	public UserModel (UserFormDto form) {
+	public UserModel (UserFormDto form, PasswordEncoder passwordEncoder) {
 		this.username = form.getUsername();
-		this.password = form.getPassword();
+		this.password = passwordEncoder.encode(form.getPassword());
 		this.roles = List.of(new RoleModel(RoleName.ROLE_USER));
 	}	
 
