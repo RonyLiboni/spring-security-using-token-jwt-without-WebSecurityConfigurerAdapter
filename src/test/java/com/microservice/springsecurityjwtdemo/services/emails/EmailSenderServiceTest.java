@@ -30,8 +30,6 @@ class EmailSenderServiceTest {
 		BDDMockito.verify(javaMailSenderMock).send(captor.capture());
 		SimpleMailMessage mensagem = captor.getValue();
 		assertThat(mensagem).isNotNull();
-		String from = mensagem.getFrom();
-		assertThat(from).isEqualTo("testesdeapp.naoresponda@gmail.com");
 		assertThat(mensagem.getTo()[0]).isEqualTo(destinatario);
 	}
 
