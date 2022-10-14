@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservice.springsecurityjwtdemo.annotations.PostMappingDocumentation;
 import com.microservice.springsecurityjwtdemo.entities.login_form.LoginFormDto;
 import com.microservice.springsecurityjwtdemo.entities.token.JwtTokenDto;
 import com.microservice.springsecurityjwtdemo.services.jwt_token.JwtTokenService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -29,11 +28,8 @@ public class AuthenticationController {
 	private final AuthenticationManager authManager;
 
 	@PostMapping
+	@PostMappingDocumentation(summary = "Get a token through your username and password.")
 	@Operation(summary = "Get a token through your username and password.")
-	@ApiResponses(value = {
-		    @ApiResponse(responseCode= "201", description = "The token was created with success!"),
-		    @ApiResponse(responseCode= "403", description = "You informed wrong username or password"),
-		})
 	public ResponseEntity<JwtTokenDto> autenticar(@RequestBody @Valid LoginFormDto form) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(tokenService.createToken(form, authManager));
 	}		

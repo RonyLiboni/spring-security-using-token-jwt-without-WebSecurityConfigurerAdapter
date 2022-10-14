@@ -1,4 +1,4 @@
-package com.microservice.springsecurityjwtdemo.controllers.exceptions;
+package com.microservice.springsecurityjwtdemo.exceptions;
 
 import java.util.List;
 import java.util.stream.Collectors;

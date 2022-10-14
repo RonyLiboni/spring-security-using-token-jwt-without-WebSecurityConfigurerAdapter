@@ -28,16 +28,17 @@ public class UserModelService {
 	private final PasswordEncoder passwordEncoder;
 	private final ApplicationEventPublisher eventPublisher;
 	
+	@Transactional
 	public UserModelDto registerUser(UserFormDto form) {
 		return new UserModelDto(saveEntity(new UserModel(form, passwordEncoder)));
 	}
 	
-	@Transactional
+	
 	private UserModel saveEntity(UserModel user) {
 		return userRepository.save(user);
 	}
 	
-	
+	@Transactional
 	public void deleteUser() {
 		userRepository.delete(getUserByUsername());	
 	}
@@ -60,17 +61,17 @@ public class UserModelService {
 		return new UserModelDto(updateUsername(form));
 	}
 	
-	
+	@Transactional
 	private UserModel updateUsername(UsernameFormDto form) {
 		UserModel userByUsername = getUserByUsername();
 		userByUsername.setUsername(form.getUsername());
-		return userByUsername;//saveEntity(userByUsername);
+		return userByUsername;
 	}
 	
+	@Transactional
 	public void updateOnlyPassword(PasswordFormDto form) {
 		UserModel userByUsername = getUserByUsername();
 		userByUsername.setPassword(passwordEncoder.encode(form.getPassword()));
-		saveEntity(userByUsername);
 	}
 	
 	@Transactional
