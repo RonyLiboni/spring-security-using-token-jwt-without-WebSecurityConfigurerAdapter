@@ -1,4 +1,8 @@
 spring:
+
+  profiles:
+    active: default
+    
   datasource:
     password: ${DATABASE_PASSWORD:root}
     url: ${DATABASE_URL:jdbc:mysql://localhost:3306/spring-security-jwt?createDatabaseIfNotExist=TRUE}
