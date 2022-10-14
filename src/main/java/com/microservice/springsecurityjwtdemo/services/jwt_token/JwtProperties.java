@@ -1,4 +1,4 @@
-package com.microservice.springsecurityjwtdemo.configurations.security;
+package com.microservice.springsecurityjwtdemo.services.jwt_token;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

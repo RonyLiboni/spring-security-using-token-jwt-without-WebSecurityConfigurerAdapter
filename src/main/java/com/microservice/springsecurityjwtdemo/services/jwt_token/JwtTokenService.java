@@ -8,7 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.microservice.springsecurityjwtdemo.configurations.security.JwtProperties;
 import com.microservice.springsecurityjwtdemo.entities.login_form.LoginFormDto;
 import com.microservice.springsecurityjwtdemo.entities.token.JwtTokenDto;
 import com.microservice.springsecurityjwtdemo.entities.user.UserModel;
