@@ -20,16 +20,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "users")
 public class UserModel implements UserDetails{
  
