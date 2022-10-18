@@ -75,7 +75,7 @@ class GlobalExceptionHandlerTest extends ControllerTestTemplate {
 				.post(forgotPasswordUri+"/usernameThatDoesNotExist"))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.isBadRequest());
+				.isNotFound());
 
 		String errors = result.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 		

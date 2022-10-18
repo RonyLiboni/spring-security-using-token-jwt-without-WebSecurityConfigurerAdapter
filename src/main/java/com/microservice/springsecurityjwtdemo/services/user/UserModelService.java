@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserModelDto;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UsernameFormDto;
 import com.microservice.springsecurityjwtdemo.events.PasswordRecoveryTokenEvent;
+import com.microservice.springsecurityjwtdemo.exceptions.RecoveryTokenException;
 import com.microservice.springsecurityjwtdemo.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -49,7 +51,7 @@ public class UserModelService {
 	
 	private UserModel findByUsername(String username) {
 		return userRepository.findByUsername(username)
-				.orElseThrow(() -> new RuntimeException("This username doesn't exist"));
+				.orElseThrow(() -> new UsernameNotFoundException("This username doesn't exist"));
 	}
 
 	private String getUsername() {
@@ -88,7 +90,7 @@ public class UserModelService {
 	@Transactional
 	public void validateTokenAndChangePassword(PasswordRecoveryFormDto form) {
 		UserModel user = userRepository.findByPasswordRecoveryToken(form.getRecoveryToken())
-				.orElseThrow(()-> new RuntimeException("The token you provided doesn't exist."));
+				.orElseThrow(()-> new RecoveryTokenException("The token you provided doesn't exist."));
 		user.setPassword(passwordEncoder.encode(form.getNewPassword()));
 		user.setPasswordRecoveryToken(null);
 	}
