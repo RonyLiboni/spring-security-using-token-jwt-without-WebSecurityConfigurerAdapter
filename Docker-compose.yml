@@ -22,7 +22,7 @@ services:
        - db_data:/var/lib/mysql
       
   app:
-    image: ronaldliboni/spring-security-with-token-jwt:1.0
+    image: ronaldliboni/spring-security-with-token-jwt:2
     container_name: spring-security-with-token-jwt
     depends_on:
       mysql-db:
