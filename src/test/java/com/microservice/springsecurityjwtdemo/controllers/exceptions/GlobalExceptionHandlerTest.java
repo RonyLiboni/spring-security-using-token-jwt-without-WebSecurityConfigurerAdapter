@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.microservice.springsecurityjwtdemo.configurations.controllers.ControllerTestTemplate;
 import com.microservice.springsecurityjwtdemo.utils.UserUtil;
 
-class GlobalExceptionHandlerControllerTest extends ControllerTestTemplate {
+class GlobalExceptionHandlerTest extends ControllerTestTemplate {
 		
 	@Test
 	void userFormDtoValidation_userController_shouldReturnBadRequestAndValidationErrors_WhenThereAreInvalidFieldsInTheFormSent() throws Exception {
@@ -72,10 +72,10 @@ class GlobalExceptionHandlerControllerTest extends ControllerTestTemplate {
 	@Test
 	void changeUserForgottenPasswordThroughToken_userController_shouldReturnBadRequest_WhenTheUsernameSentDoesNotExist() throws Exception {
 		ResultActions result = mockMvc.perform(MockMvcRequestBuilders
-				.get(forgotPasswordUri+"/usernameThatDoesNotExist"))
+				.post(forgotPasswordUri+"/usernameThatDoesNotExist"))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.isBadRequest());
+				.isNotFound());
 
 		String errors = result.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
 		
