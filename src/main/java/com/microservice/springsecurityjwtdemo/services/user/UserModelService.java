@@ -94,4 +94,9 @@ public class UserModelService {
 		user.setPassword(passwordEncoder.encode(form.getNewPassword()));
 		user.setPasswordRecoveryToken(null);
 	}
+	
+	@Transactional
+	public void deleteUserByUsername(String username) {
+		userRepository.delete(findByUsername(username));
+	}
 }
