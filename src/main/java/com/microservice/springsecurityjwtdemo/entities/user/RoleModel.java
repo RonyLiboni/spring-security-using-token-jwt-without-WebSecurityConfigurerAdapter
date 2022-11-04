@@ -33,4 +33,11 @@ public class RoleModel implements GrantedAuthority{
 	public String getAuthority() {
 		return roleName.toString();
 	}
+
+	@Override
+	public String toString() {
+		return roleName.toString();
+	}
+	
+	
 }

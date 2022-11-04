@@ -3,7 +3,6 @@ package com.microservice.springsecurityjwtdemo.configurations.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,10 +43,11 @@ public class WebSecurityConfiguration {
 		http
             .authorizeRequests(auth -> {
             	auth
-            		.antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            		.antMatchers("/v1/user/forgotMyPassword/**").permitAll()
-            		.antMatchers(HttpMethod.POST, "/v1/user", "/auth").permitAll()
-            		.anyRequest().authenticated();
+//            		.antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+//            		.antMatchers("/all/**").permitAll()
+//            		.antMatchers("/admin/**").hasRole("ADMIN")
+//            		.antMatchers("/user/**").hasRole("USER")
+            		.anyRequest().permitAll();
             })
             .cors().and()
             .csrf().disable()

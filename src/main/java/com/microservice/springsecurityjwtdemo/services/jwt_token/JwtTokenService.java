@@ -51,6 +51,7 @@ public class JwtTokenService {
 		return Jwts.builder()
 				.setIssuer("Spring Security Demo with JWT API. Find the project in https://github.com/RonyLiboni/spring-security-using-token-jwt-without-WebSecurityConfigurerAdapter.git")
 				.setSubject(user.getUserId().toString())
+				.setAudience(user.getAuthorities().toString())
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(new Date().getTime() + jwtProperties.getExpiration()))
 				.signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())

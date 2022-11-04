@@ -11,9 +11,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/admin/v1/user")
+@RequestMapping("/admin/v1/users")
 @RequiredArgsConstructor
-public class UserAdminController {
+public class UserAdminEndpointsController {
 	
 	private final UserModelService userModelService;
 	

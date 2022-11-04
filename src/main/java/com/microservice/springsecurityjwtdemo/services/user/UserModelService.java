@@ -99,4 +99,10 @@ public class UserModelService {
 	public void deleteUserByUsername(String username) {
 		userRepository.delete(findByUsername(username));
 	}
+
+	@Transactional
+	public UserModel findById(String id) {
+		return userRepository.findById(UUID.fromString(id))
+				.orElseThrow(() -> new UsernameNotFoundException("This id doesn't exist"));
+	}
 }

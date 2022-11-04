@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.microservice.springsecurityjwtdemo.entities.user.dto.UserFormDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,6 +42,7 @@ public class UserModel implements UserDetails{
 	private String username;
 	
 	@Column(nullable = false)
+	@JsonIgnore
 	@Schema(example = "123456")
 	private String password;
 	
@@ -48,6 +50,7 @@ public class UserModel implements UserDetails{
 	private List<RoleModel> roles;
 	
 	@Column(nullable = true)
+	@JsonIgnore
 	private String passwordRecoveryToken;
 	
 	public UserModel (UserFormDto form, PasswordEncoder passwordEncoder) {
